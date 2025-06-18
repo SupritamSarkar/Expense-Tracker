@@ -2,6 +2,10 @@ import React,{useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import Input from '../../components/Inputs/Input'
 import {validateEmail} from '../../utils/helper'
+import axiosInstance from '../../utils/axiosInstance'
+import { API_PATHS } from '../../utils/apiPaths'
+import { UserContext } from '../../context/UserContext'
+import { useContext } from 'react'
 
 
 const SignUp = () => {
@@ -13,24 +17,50 @@ const SignUp = () => {
 
     const [error, setError] = useState('')
     const navigate = useNavigate()
+    const { updateUser } = useContext(UserContext)
 
     //Handle SignUp form submit
     const handleSignUp = async (e) => {
-      e.preventDefault()
-      if(!fullName || !email || !password){
+      e.preventDefault()        // Prevent default form submission behavior
+      if(!fullName || !email || !password){     // Check if all fields are filled
         setError('Please fill all fields')
         return
       }
-      if(!validateEmail(email)){
+      if(!validateEmail(email)){          // Validate email format
         setError('Please enter a valid email')
         return
       }
+      setError('') // Reset error message
+
       //Make API call to register user
-      //If success, redirect to dashboard
-      //If error, set error message
-      console.log('SignUp successful')
-      navigate('/dashboard')
+      try{
+        const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {     // API call to register user
+          fullName,
+          email,
+          password
+        })
+        const {token,user} = response.data    // Destructure token and user from response data
+
+        if(token){
+          localStorage.setItem('token', token) // Store token in localStorage
+          updateUser(user) // Update user context
+          localStorage.setItem('user', JSON.stringify(user)) // Store user info in localStorage
+          navigate('/dashboard');
+        }
+      }
+      catch(err){
+        console.error('sign up error:', err)
+        if(err.response && err.response.data && err.response.data.message){             // Check if error response contains a message
+          setError(err.response.data.message) // Set error message from server response
+        } else {
+          setError('An error occurred during signup. Please try again.')
+        }
+      }
+
     }
+
+      
+    
 
   return (
     <div >

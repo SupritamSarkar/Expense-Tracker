@@ -5,7 +5,7 @@ const User = require('../models/User');  // Importing the User model to interact
 //generate JWT token
 const generateToken = (id) => {     // Function to generate a JWT token
     return jwt.sign({ id }, process.env.JWT_SECRET, {       // Sign the token with a secret key from environment variables
-        expiresIn: '1h',  // Token will expire in 1 hour
+        expiresIn: '30d',  // Token will expire in 1 hour
     });
 };
 

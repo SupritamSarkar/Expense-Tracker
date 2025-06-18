@@ -4,17 +4,21 @@ import Income from './pages/Dashboard/Income'
 import Expense from './pages/Dashboard/Expense'
 import Login from './pages/Auth/Login'
 import SignUp from './pages/Auth/SignUp'
+import UserProvider from './context/UserContext'
 
 
-import {
+
+import {                             // Import necessary components from react-router-dom
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from 'react-router-dom'
 
+
 const App = () => {
-  return (
+  return (                    // Main App component
+    <UserProvider>
     <div>
       <Router>
       <Routes>
@@ -27,6 +31,7 @@ const App = () => {
       </Routes>
       </Router>
     </div>
+    </UserProvider>
   )
 }
 
