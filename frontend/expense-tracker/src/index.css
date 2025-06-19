@@ -1,3 +1,31 @@
 @import "tailwindcss";
 
 
+body, html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+}
+
+
+.input-box{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem; /* gap-3 */
+    font-size: 1.125rem; /* text-lg */
+    color: #000; /* text-black */
+    background-color: #f1f5f9; /* bg-slate-100 */
+    border-radius: 0.5rem; /* rounded */
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem;
+}
+
+.card{
+    @apply bg-white p-6 rounded-2xl shadow-md shadow-gray-500 border border-gray-100 ;
+
+}
+
+.card-btn{
+    @apply flex items-center gap-3 font-medium hover:text-blue-500 cursor-pointer bg-gray-100 border border-gray-300 rounded-lg px-3 py-1.5;
+}

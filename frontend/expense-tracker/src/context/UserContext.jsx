@@ -21,8 +21,7 @@ const UserProvider = ({children}) => {          // UserProvider component to pro
 
 
     
-  return (                                                                    //// Provide the user state and functions to all children components
-    // UserContext.Provider is used to pass the user state and functions down the component tree
+  return (                                                                      
     <UserContext.Provider value={{ user, updateUser, clearUser }}>          
       {children}
     </UserContext.Provider>
