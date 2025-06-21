@@ -1,10 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 export const UserContext = React.createContext();      // Create a UserContext to manage user state across the application
 
 const UserProvider = ({children}) => {          // UserProvider component to provide user state and functions to its children
 
     const [user, setUser] = useState(null);
+
+     useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem('user'));
+    setUser(savedUser || null); // null if not logged in
+  }, []);
 
     //function to update user data
     const updateUser = (userData) => {
@@ -17,6 +22,8 @@ const UserProvider = ({children}) => {          // UserProvider component to pro
         localStorage.removeItem('token'); // Clear token from localStorage
         localStorage.removeItem('user'); // Clear user info from localStorage
     };
+
+
 
 
 

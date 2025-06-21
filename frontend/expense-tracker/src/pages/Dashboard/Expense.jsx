@@ -1,11 +1,11 @@
 import React from 'react'
+import DashboardLayout from '../../components/layout/DashboardLayout';
 
 const Expense = () => {
   return (
-    <div>
-      Expense pageS
-    </div>
+    <DashboardLayout activeMenu="Expense">
+        <div className='my-5 mx-auto'></div>
+    </DashboardLayout>
   )
 }
-
 export default Expense
