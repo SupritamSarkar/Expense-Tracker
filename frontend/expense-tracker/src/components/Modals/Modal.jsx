@@ -1,22 +1,36 @@
-import React, { useState } from 'react'
-import EmojiPicker from 'emoji-picker-react'
+import React, { useState } from 'react';
+import EmojiPicker from 'emoji-picker-react';
 
-const Modal = ({ isOpen, onClose, title }) => {
-  const [amount, setAmount] = useState('')
-  const [source, setSource] = useState('')
-  const [date, setDate] = useState('')
-  const [description, setDescription] = useState('')
-  const [selectedEmoji, setSelectedEmoji] = useState('💰')
-  const [showPicker, setShowPicker] = useState(false)
+const Modal = ({ isOpen, onClose, title, type = 'income', onSave }) => {
+  const [amount, setAmount] = useState('');
+  const [sourceOrCategory, setSourceOrCategory] = useState('');
+  const [date, setDate] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedEmoji, setSelectedEmoji] = useState('💰');
+  const [showPicker, setShowPicker] = useState(false);
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   const handleSave = (e) => {
-    e.preventDefault()
-    // Save logic goes here
-    console.log({ amount, source, date, description, icon: selectedEmoji })
-    onClose() // close after save
-  }
+    e.preventDefault();
+
+    const data = {
+      amount: parseFloat(amount),
+      date,
+      description,
+      icon: selectedEmoji,
+    };
+
+    if (type === 'income') {
+      data.source = sourceOrCategory;
+    } else {
+      data.category = sourceOrCategory;
+    }
+
+    console.log(data);
+    if (onSave) onSave(data); // Send data to parent
+    onClose(); // Close modal after save
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black/50 z-50 overflow-auto p-4">
@@ -34,8 +48,7 @@ const Modal = ({ isOpen, onClose, title }) => {
 
         {/* Modal body */}
         <form onSubmit={handleSave} className="space-y-4">
-            
-            {/* Emoji */}
+          {/* Emoji */}
           <div className="relative">
             <label className="block mb-1">Icon (Emoji)</label>
             <button
@@ -47,16 +60,17 @@ const Modal = ({ isOpen, onClose, title }) => {
             </button>
 
             {showPicker && (
-              <div className="absolute z-10 mt-2 border border-gray-200 shadow-lg">
+              <div className="absolute z-10 mt-2 border border-gray-200 shadow-lg bg-white">
                 <EmojiPicker
                   onEmojiClick={(emojiData) => {
-                    setSelectedEmoji(emojiData.emoji)
-                    setShowPicker(false)
+                    setSelectedEmoji(emojiData.emoji);
+                    setShowPicker(false);
                   }}
                 />
               </div>
             )}
           </div>
+
           {/* Amount */}
           <div>
             <label className="block mb-1">Amount</label>
@@ -70,16 +84,20 @@ const Modal = ({ isOpen, onClose, title }) => {
             />
           </div>
 
-          {/* Source */}
+          {/* Source or Category */}
           <div>
-            <label className="block mb-1">Source</label>
+            <label className="block mb-1">
+              {type === 'income' ? 'Source' : 'Category'}
+            </label>
             <input
               type="text"
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
+              value={sourceOrCategory}
+              onChange={(e) => setSourceOrCategory(e.target.value)}
               className="w-full border border-gray-300 p-2 rounded"
               required
-              placeholder="e.g. Salary"
+              placeholder={
+                type === 'income' ? 'e.g. Salary' : 'e.g. Groceries'
+              }
             />
           </div>
 
@@ -107,19 +125,17 @@ const Modal = ({ isOpen, onClose, title }) => {
             />
           </div>
 
-          
-
           {/* Save button */}
           <button
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded w-full mt-4"
           >
-            Save Income
+            Save {type === 'income' ? 'Income' : 'Expense'}
           </button>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { prepareIncomeBarChartData } from '../../utils/helper';
+import { prepareExpenseBarChartData } from '../../utils/helper';
 import { LuPlus } from 'react-icons/lu';
-import CustomBar from '../Charts/CustomBar';
+import CustomLine from '../Charts/CustomLine';
 
-const COLORS = ["#00A676"]; 
+const COLORS = ["#E30022"]; 
 
-const IncomeOverview = ({transactions, onAddIncome}) => {
+const ExpenseOverview = ({transactions, onAddExpense}) => {
 
     const [chartData, setChartData] = useState([]);
 
    useEffect(() => {
   // ensure transactions is an array
-  const result = prepareIncomeBarChartData(transactions || []);
+  const result = prepareExpenseBarChartData(transactions || []);
   setChartData(result); // always an array
 }, [transactions]);
 
@@ -20,28 +20,27 @@ const IncomeOverview = ({transactions, onAddIncome}) => {
   return (
     <div className='card'>
 
-      {/*heading and Add button*/}
+      {/*heading and button*/}
         <div className='flex items-center justify-between'>
             <div>
-                <h2 className='text-xl font-medium'>Income Overview</h2>
-                 <p className='text-sm'>Track your earnings</p>
+                <h2 className='text-xl font-medium'>Expense Overview</h2>
+                 <p className='text-sm'>Track your expenses</p>
             </div>
 
-            <button className='card-btn text-green-800 bg-green-100' onClick={onAddIncome}>
+            <button className='card-btn text-red-800 bg-red-200' onClick={onAddExpense}>
                 <LuPlus size={22}/>
-                Add Income
+                Add Expense
             </button>
         </div>
 
 
       {/*income barchart*/}
         <div className='mt-7'>
-          <CustomBar 
+          <CustomLine
           data={chartData}
-           colors={COLORS}
+          color={COLORS}
           showTextAnchor
           xKey="month"
-          rotateLabels={true} 
           />
         </div>
       
@@ -51,4 +50,4 @@ const IncomeOverview = ({transactions, onAddIncome}) => {
   )
 }
 
-export default IncomeOverview
+export default ExpenseOverview

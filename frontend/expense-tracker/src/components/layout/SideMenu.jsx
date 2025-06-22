@@ -22,16 +22,17 @@ const SideMenu = ({activeMenu}) => {
     <div className='w-64 h-[calc(100vh-64px)] bg-white border-r border-gray-200/50 p-5 sticky top-16 z-20'>
         
         <div>
-            <h5 className='text-center text-2xl font-bold mb-5'>     
+            <h5 className='text-lg font-medium pl-4 font-sans'>Welcome</h5>
+            <h4 className='text-center text-2xl font-bold mb-9'>     
                 {user?.fullName || ""}
-            </h5>                   
+            </h4>                   
         </div>
 
 
         {SIDE_MENU_DATA.map((item, index) => (
             <button
                 key={`menu_${index}`}
-                className={`w-full flex items-center gap-4 text-[15px] ${
+                className={`w-full flex items-center gap-4 text-lg ${
                     activeMenu == item.label ? "text-white bg-blue-900":""}     
                     py-3 px-6 rounded-lg mb-3`}
                     onClick={() => handleClick(item.path)}

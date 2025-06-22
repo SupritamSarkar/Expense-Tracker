@@ -1,20 +1,7 @@
 import React from "react";
-import {
-  LuAArrowDown,
-  LuTrash2,
-  LuTrendingDown,
-  LuTrendingUp,
-  LuUtensils,
-} from "react-icons/lu";
+import { LuTrash2, LuTrendingDown, LuTrendingUp } from "react-icons/lu";
 
-const TransactionInfoCard = ({
-  title,
-  icon,
-  date,
-  amount,
-  type,
-  hideDeleteBtn,
-}) => {
+const TransactionInfoCard = ({ title, icon, date, amount, type, onDelete }) => {
   const getAmountStyles = () => {
     return type === "income"
       ? "bg-green-50 text-green-700"
@@ -22,38 +9,39 @@ const TransactionInfoCard = ({
   };
 
   return (
-    <div className="group relative flex items-center gap-4 mt-2 p-3 rounded-lg hover:bg-gray-100/50">
-      <div className="w-12 h-12 flex items-center justify-center text-gray-900 bg-gray-100 rounded-full text-2xl">
-        {type === "expense" && icon ? (
-          <span>{icon}</span> // Just show emoji directly
-        ) : (
-          <span>💰</span> // Empty for income
-        )}
+    <div className="group relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-2 p-3 rounded-lg hover:bg-gray-200">
+      {/* Left section */}
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 flex items-center justify-center text-gray-900 bg-gray-100 rounded-full text-2xl">
+          {type === "expense" && icon ? <span>{icon}</span> : <span>💰</span>}
+        </div>
+
+        <div>
+          <p className="text-lg text-gray-900 font-medium">{title}</p>
+          <p className="text-sm">{date}</p>
+        </div>
       </div>
 
-      <div>
-        <p className="text-lg text-gray-900 font-medium">{title}</p>
-        <p className="text-sm">{date}</p>
-      </div>
-
-      <div className="flex items-center gap-2 ml-auto">
-        {!hideDeleteBtn && (
-          <button
-            className="text-gray-400 hover:text-red-400 cursor-pointer"
-            onClick={onDelete}
-          >
-            <LuTrash2 size={20} />
-          </button>
-        )}
-
+      {/* Right section */}
+      <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap justify-end w-full sm:w-auto">
         <div
           className={`flex items-center gap-2 px-3 py-1 rounded-md ${getAmountStyles()}`}
         >
-          <h6 className="text-lg ">
+          <h6 className="text-lg whitespace-nowrap">
             {type === "income" ? "+" : "-"} ₹{amount}
           </h6>
           {type === "income" ? <LuTrendingUp /> : <LuTrendingDown />}
         </div>
+
+        {onDelete && (
+          <button
+            className="text-gray-500 hover:text-red-500 cursor-pointer"
+            onClick={onDelete}
+            title="Delete transaction"
+          >
+            <LuTrash2 size={20} />
+          </button>
+        )}
       </div>
     </div>
   );

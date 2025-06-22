@@ -29,3 +29,4 @@ body, html {
 .card-btn{
     @apply flex items-center gap-3 font-medium hover:text-blue-500 cursor-pointer border border-gray-300 rounded-lg px-3 py-1.5;
 }
+

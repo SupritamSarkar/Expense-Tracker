@@ -34,3 +34,19 @@ export const prepareIncomeBarChartData = (data) => {
     }));
 };
 
+export const prepareExpenseBarChartData = (data) => {
+    if (!Array.isArray(data)) {
+        return []; // ✅ Always return empty array if data is not array
+    }
+
+    const sortedData = [...data].sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+    );
+
+    return sortedData.map((item) => ({
+        month: moment(item?.date).format('Do MMM'),
+        amount: item?.amount || 0,
+        source: item?.source || '',
+    }));
+};
+

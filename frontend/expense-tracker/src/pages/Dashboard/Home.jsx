@@ -43,6 +43,8 @@ const Home = () => {
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="my-5 mx-auto">
+
+        {/*Total balance income and expense card*/}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InfoCard
             icon={<IoMdCard className="text-4xl" />}
@@ -64,6 +66,8 @@ const Home = () => {
           />
         </div>
 
+
+        {/*Recent transactions*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <RecentTransactions
             transactions={dashboardData?.lastTransactions}
@@ -71,6 +75,8 @@ const Home = () => {
           />
         </div>
 
+
+        {/*Bar chart of totals*/}
         {dashboardData && (
           <div className="mt-10 ">
             <FinanceOverview
@@ -80,6 +86,8 @@ const Home = () => {
             />
           </div>
         )}
+
+        
       </div>
     </DashboardLayout>
   );
