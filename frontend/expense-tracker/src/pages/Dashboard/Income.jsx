@@ -11,14 +11,38 @@ import InfoCard from '../../components/Cards/InfoCard'
 import { LuDownload, LuWalletMinimal } from 'react-icons/lu'
 import toast from 'react-hot-toast'
 
+
+// NEW Modal for income transaction details while clicking
+const TransactionModal = ({ transaction, isOpen, onClose }) => {
+  if (!isOpen || !transaction) return null;
+  return (
+    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+      <div className="bg-white p-9 rounded-lg max-w-md w-full relative shadow-xl">
+        <button className="absolute top-2 right-3 text-2xl" onClick={onClose}>x</button>
+        <h2 className="text-2xl font-bold mb-8 underline">Transaction Details</h2>
+        <p className='text-lg'><strong>Source : </strong> {transaction.source}</p>
+        <p className='text-lg'><strong>Amount : </strong> ₹{transaction.amount}</p>
+        <p className='text-lg'><strong>Date : </strong> {moment(transaction.date).format("Do MMM YYYY")}</p>
+        <p className='text-lg'><strong>Description : </strong> {transaction.description || "N/A"}</p>
+      </div>
+    </div>
+  );
+};
+//end of modal
+
+
 const Income = () => {
   const [incomeData, setIncomeData] = useState([])
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [loading, setLoading] = useState(false)
   const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false)
 
+  // NEW states for transaction modal
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false);
+
   //fetching income data to page
-  const fetchIncomeData = async () => {
+  const fetchIncomeData = React.useCallback(async () => {
     if (loading) return
     setLoading(true)
     
@@ -36,7 +60,7 @@ const Income = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [loading])
 
   //handle add income
   const handleAddIncome = async (income) =>{
@@ -106,7 +130,7 @@ const Income = () => {
 
   useEffect(() => {
     fetchIncomeData()
-  }, [])
+  }, [fetchIncomeData])
 
   return (
     <DashboardLayout activeMenu="Income">
@@ -152,12 +176,17 @@ const Income = () => {
       incomeData.map((item) => (
         <TransactionInfoCard
           key={item._id}
+          transaction={item}
           title={item.source}
           icon={item.icon}
           date={moment(item.date).format('Do MMM YYYY')}
           amount={item.amount}
           type="income"
           onDelete={()=> handleDeleteIncome(item._id)}
+          onClick={(transaction) => {
+                  setSelectedTransaction(transaction);
+                  setIsTransactionModalOpen(true);
+          }}
         />
       ))
     )}
@@ -173,7 +202,11 @@ const Income = () => {
   onSave={handleAddIncome}
 />
 
-
+  <TransactionModal
+        transaction={selectedTransaction}
+        isOpen={isTransactionModalOpen}
+        onClose={() => setIsTransactionModalOpen(false)}
+      />
 
     </DashboardLayout>
   )

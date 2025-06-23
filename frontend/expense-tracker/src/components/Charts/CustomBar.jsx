@@ -1,13 +1,6 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LabelList } from 'recharts';
-
-const CustomBar = ({ 
-  data = [], 
-  colors = [], 
-  showTextAnchor, 
-  xKey = "name",
-  rotateLabels = false   // NEW PROP
-}) => {
+const CustomBar = ({ data = [], colors = [], showTextAnchor, xKey = "name" }) => {
   return (
     <div className="w-full h-80 text-lg font-medium">
       <ResponsiveContainer width="100%" height="100%">
@@ -15,11 +8,10 @@ const CustomBar = ({
           <XAxis
             dataKey={xKey}
             interval={0}
-            // Rotate labels only if rotateLabels is true
-            angle={rotateLabels ? -40 : 0}
-            textAnchor={rotateLabels ? "end" : "middle"}
-            height={rotateLabels ? 80 : 40}
-            tick={{ fontSize: 15 }}
+            angle={-40}             // rotate text 90 degrees
+            textAnchor="end"        // align at the end of each label
+            height={80}            // height to fit vertical labels
+            tick={{ fontSize: 15 }} // optional font size
           />
           <YAxis />
           <Tooltip />
@@ -41,4 +33,4 @@ const CustomBar = ({
   );
 };
 
-export default CustomBar;
+export default CustomBar;  

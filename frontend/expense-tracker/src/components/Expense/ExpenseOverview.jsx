@@ -12,7 +12,9 @@ const ExpenseOverview = ({transactions, onAddExpense}) => {
    useEffect(() => {
   // ensure transactions is an array
   const result = prepareExpenseBarChartData(transactions || []);
-  setChartData(result); // always an array
+  // only keep the last 8 transactions
+    const last8 = result.slice(-8); 
+  setChartData(last8); // always an array
 }, [transactions]);
 
     
@@ -34,8 +36,8 @@ const ExpenseOverview = ({transactions, onAddExpense}) => {
         </div>
 
 
-      {/*income barchart*/}
-        <div className='mt-7'>
+      {/*expense barchart*/}
+        <div className='w-full mt-7'>
           <CustomLine
           data={chartData}
           color={COLORS}

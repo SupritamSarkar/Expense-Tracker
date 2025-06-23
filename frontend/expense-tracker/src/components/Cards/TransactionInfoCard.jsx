@@ -1,7 +1,16 @@
 import React from "react";
 import { LuTrash2, LuTrendingDown, LuTrendingUp } from "react-icons/lu";
 
-const TransactionInfoCard = ({ title, icon, date, amount, type, onDelete }) => {
+const TransactionInfoCard = ({
+  title,
+  transaction,
+  icon,
+  date,
+  amount,
+  type,
+  onDelete,
+  onClick,
+}) => {
   const getAmountStyles = () => {
     return type === "income"
       ? "bg-green-50 text-green-700"
@@ -9,11 +18,14 @@ const TransactionInfoCard = ({ title, icon, date, amount, type, onDelete }) => {
   };
 
   return (
-    <div className="group relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-2 p-3 rounded-lg hover:bg-gray-200">
+    <div
+      className="group relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-2 p-3 rounded-lg hover:bg-gray-200"
+      onClick={() => onClick && onClick(transaction)}
+    >
       {/* Left section */}
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 flex items-center justify-center text-gray-900 bg-gray-100 rounded-full text-2xl">
-          {type === "expense" && icon ? <span>{icon}</span> : <span>💰</span>}
+          <span>{icon}</span>
         </div>
 
         <div>
@@ -36,7 +48,10 @@ const TransactionInfoCard = ({ title, icon, date, amount, type, onDelete }) => {
         {onDelete && (
           <button
             className="text-gray-500 hover:text-red-500 cursor-pointer"
-            onClick={onDelete}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete();
+            }}
             title="Delete transaction"
           >
             <LuTrash2 size={20} />

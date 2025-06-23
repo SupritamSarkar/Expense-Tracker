@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+ import React, { useEffect, useState } from 'react'
 import { prepareIncomeBarChartData } from '../../utils/helper';
 import { LuPlus } from 'react-icons/lu';
 import CustomBar from '../Charts/CustomBar';
@@ -41,7 +41,6 @@ const IncomeOverview = ({transactions, onAddIncome}) => {
            colors={COLORS}
           showTextAnchor
           xKey="month"
-          rotateLabels={true} 
           />
         </div>
       
