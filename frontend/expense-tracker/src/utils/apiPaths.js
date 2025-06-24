@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:8000';
+export const BASE_URL = 'https://expenzy-4d8x.onrender.com';
 
 // This is the base URL for the API, which can be used to construct full API endpoints
 
