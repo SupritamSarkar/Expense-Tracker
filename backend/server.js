@@ -29,6 +29,11 @@ app.use("/api/v1/income", incomeRoutes);  // Assuming incomeRoutes is defined in
 app.use("/api/v1/expense", expenseRoutes);  // Importing and using income-related routes
 app.use("/api/v1/dashboard", dashboardRoutes);  // Importing and using dashboard-related routes
 
+// ✅ Add this health check route
+app.get("/", (req, res) => {
+  res.status(200).send("Expense Tracker Backend is live ✅");
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
