@@ -48,12 +48,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
-      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-sm flex flex-col items-center gap-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+      <div className="bg-white shadow-2xl rounded-2xl px-8 py-10 w-full max-w-sm flex flex-col items-center gap-6 border-gray-500 border-1">
         <h3 className="text-3xl font-extrabold text-gray-800">Log in</h3>
         <p className="text-gray-700 text-center">Please enter your details to log in</p>
 
-        <form className="flex flex-col gap-4 w-full" onSubmit={handleLogin}>
+        <form className="flex flex-col gap-7 w-full" onSubmit={handleLogin}>
           <Input type="email" placeholder="Email" value={email} onChange={setEmail} />
           <Input type="password" placeholder="Password" value={password} onChange={setPassword} />
 

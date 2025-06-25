@@ -51,12 +51,12 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
-      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-sm flex flex-col items-center gap-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+      <div className="bg-white shadow-2xl rounded-2xl px-7 py-10 w-full max-w-sm flex flex-col items-center gap-5">
         <h3 className="text-3xl font-extrabold text-gray-800">Create an Account</h3>
         <p className="text-gray-700 text-center">Please enter your details to sign up</p>
 
-        <form className="flex flex-col gap-4 w-full" onSubmit={handleSignUp}>
+        <form className="flex flex-col gap-5 w-full" onSubmit={handleSignUp}>
           <Input type="text" placeholder="Full Name" value={fullName} onChange={setFullName} />
           <Input type="email" placeholder="Email" value={email} onChange={setEmail} />
           <Input type="password" placeholder="Password" value={password} onChange={setPassword} />
