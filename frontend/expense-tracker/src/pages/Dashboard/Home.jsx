@@ -107,8 +107,9 @@ const Home = () => {
               totalIncome={dashboardData.totalIncome || 0}
               totalExpense={dashboardData.totalExpense || 0}
             />
+            { /* AI Insights Section */}
             {aiInsights && (
-              <div className="mt-10 p-6 bg-slate-100 rounded-2xl shadow-md">
+              <div className="card bg-white shadow-md p-6 mt-10">
                 <h2 className="text-xl font-semibold mb-2">💡 AI Summary</h2>
                 <ReactMarkdown className="prose max-w-none text-gray-800">
                   {aiInsights}
