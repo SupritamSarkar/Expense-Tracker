@@ -12,7 +12,6 @@ import { addThousandsSeperator } from "../../utils/helper";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../components/Dashboard/FinanceOverviwe";
 import ReactMarkdown from "react-markdown";
-import axios from "axios";
 
 const Home = () => {
   useUserAuth();
@@ -22,9 +21,11 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   const [aiInsights, setAiInsights] = useState("");
+  const [aiLoading, setAiLoading] = useState(false); // For AI loading
 
   const fetchAIInsights = async (transactions) => {
     try {
+      setAiLoading(true);
       const res = await axiosInstance.post("/api/v1/ai/summary", {
         transactions,
       });
@@ -34,18 +35,16 @@ const Home = () => {
       }
     } catch (error) {
       console.error("Failed to fetch Gemini AI insights", error);
+    } finally {
+      setAiLoading(false);
     }
   };
 
   const fetchDashboardData = async () => {
     if (loading) return;
-
     setLoading(true);
-
     try {
-      const response = await axiosInstance.get(
-        `${API_PATHS.DASHBOARD.GET_DATA}`
-      );
+      const response = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
       if (response.data) {
         setDashboardData(response.data);
       }
@@ -60,16 +59,16 @@ const Home = () => {
     fetchDashboardData();
   }, []);
 
-  useEffect(() => {
+  const handleGenerateClick = () => {
     if (dashboardData?.lastTransactions?.length) {
       fetchAIInsights(dashboardData.lastTransactions);
     }
-  }, [dashboardData]);
+  };
 
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="my-5 mx-auto">
-        {/*Total balance income and expense card*/}
+        {/* Balance Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InfoCard
             icon={<IoMdCard className="text-4xl" />}
@@ -91,7 +90,7 @@ const Home = () => {
           />
         </div>
 
-        {/*Recent transactions*/}
+        {/* Recent Transactions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <RecentTransactions
             transactions={dashboardData?.lastTransactions}
@@ -99,23 +98,37 @@ const Home = () => {
           />
         </div>
 
-        {/*Bar chart of totals*/}
+        {/* Chart + AI Insights */}
         {dashboardData && (
-          <div className="mt-10 ">
+          <div className="mt-10">
             <FinanceOverview
               totalBalance={dashboardData.totalBalance || 0}
               totalIncome={dashboardData.totalIncome || 0}
               totalExpense={dashboardData.totalExpense || 0}
             />
-            { /* AI Insights Section */}
-            {aiInsights && (
-              <div className="card bg-white shadow-md p-6 mt-10">
-                <h2 className="text-xl font-semibold mb-2">💡 AI Summary</h2>
+
+            <div className="mt-10 bg-white p-6 rounded-2xl shadow-md">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold">💡 AI Summary</h2>
+                <button
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  onClick={handleGenerateClick}
+                  disabled={aiLoading}
+                >
+                  {aiLoading ? "Generating..." : "Generate Insights"}
+                </button>
+              </div>
+
+              {aiLoading && (
+                <p className="text-gray-500 italic">AI is analyzing your data...</p>
+              )}
+
+              {!aiLoading && aiInsights && (
                 <ReactMarkdown className="prose max-w-none text-gray-800">
                   {aiInsights}
                 </ReactMarkdown>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
       </div>
