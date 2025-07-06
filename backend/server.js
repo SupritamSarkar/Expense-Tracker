@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const incomeRoutes = require("./routes/incomeRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const geminiRoutes = require('./routes/geminiRoutes');
 // Importing the necessary modules and configurations
 
 const app = express();
@@ -28,6 +29,7 @@ app.use("/api/v1/auth", authRoutes);    // Importing and using authentication ro
 app.use("/api/v1/income", incomeRoutes);  // Assuming incomeRoutes is defined in a similar manner
 app.use("/api/v1/expense", expenseRoutes);  // Importing and using income-related routes
 app.use("/api/v1/dashboard", dashboardRoutes);  // Importing and using dashboard-related routes
+app.use("/api/v1/ai", geminiRoutes);  // Importing and using AI-related routes
 
 // ✅ Add this health check route
 app.get("/", (req, res) => {

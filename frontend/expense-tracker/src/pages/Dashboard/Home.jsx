@@ -19,6 +19,23 @@ const Home = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const [aiInsights, setAiInsights] = useState('');
+
+  const fetchAIInsights = async (transactions) => {
+  try {
+    const res = await axiosInstance.post("/api/v1/ai/summary", {
+      transactions,
+    });
+
+    if (res.data?.insights) {
+      setAiInsights(res.data.insights);
+    }
+  } catch (error) {
+    console.error("Failed to fetch Gemini AI insights", error);
+  }
+};
+
+
   const fetchDashboardData = async () => {
     if (loading) return;
 
@@ -39,6 +56,12 @@ const Home = () => {
   useEffect(() => {
     fetchDashboardData();
   }, []);
+
+  useEffect(() => {
+  if (dashboardData?.lastTransactions?.length) {
+    fetchAIInsights(dashboardData.lastTransactions);
+  }
+}, [dashboardData]);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
@@ -84,6 +107,13 @@ const Home = () => {
               totalIncome={dashboardData.totalIncome || 0}
               totalExpense={dashboardData.totalExpense || 0}
             />
+            {aiInsights && (
+  <div className="mt-10 p-6 bg-slate-100 rounded-2xl shadow-md">
+    <h2 className="text-xl font-semibold mb-2">💡 Gemini AI Insights</h2>
+    <p className="whitespace-pre-line text-gray-700">{aiInsights}</p>
+  </div>
+)}
+
           </div>
         )}
 
