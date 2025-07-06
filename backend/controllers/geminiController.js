@@ -4,18 +4,34 @@ const getTransactionInsights = async (req, res) => {
   try {
     const { transactions } = req.body;
 
-    if (!transactions || !Array.isArray(transactions) || transactions.length === 0) {
-      return res.status(400).json({ message: "Invalid or empty transactions array." });
+    if (
+      !transactions ||
+      !Array.isArray(transactions) ||
+      transactions.length === 0
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Invalid or empty transactions array." });
     }
 
     const prompt = `
-      Analyze these transactions:
-      ${JSON.stringify(transactions, null, 2)}
+You are a personal finance assistant.
 
-      1. Give a summary of total income and expenses.
-      2. Highlight major spending categories.
-      3. Suggest any saving opportunities.
-    `;
+Please analyze the following list of transactions:
+
+${JSON.stringify(transactions, null, 2)}
+
+### Instructions:
+- Format your response in **markdown**.
+- Do **not** return the entire response in quotes or triple backticks.
+- Make category names **bold**.
+- Return only the insights, not the raw transaction data.
+- Keep it under 120 words.
+
+### Output Sections:
+1. **Top Spending Categories** (3 max, with amounts)
+2. **Savings Suggestions** (use bullet points)
+`;
 
     const response = await axios.post(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
