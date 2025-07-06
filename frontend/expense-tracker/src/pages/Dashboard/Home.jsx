@@ -60,10 +60,7 @@ const Home = () => {
 
   useEffect(() => {
     if (dashboardData?.lastTransactions?.length) {
-      fetchAIInsights([
-        ...(dashboardData?.incomeTransactions || []),
-        ...(dashboardData?.expenseTransactions || []),
-      ]);
+      fetchAIInsights(dashboardData.lastTransactions);
     }
   }, [dashboardData]);
 
