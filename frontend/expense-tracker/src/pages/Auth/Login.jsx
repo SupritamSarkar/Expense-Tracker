@@ -29,7 +29,10 @@ const Login = () => {
     setLoading(true); // <-- Start loading
 
     try {
-      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, { email, password });
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
       const { token, user } = response.data;
 
       if (token) {
@@ -40,7 +43,8 @@ const Login = () => {
       }
     } catch (err) {
       setError(
-        err.response?.data?.message || "An error occurred during login. Please try again."
+        err.response?.data?.message ||
+          "An error occurred during login. Please try again."
       );
     } finally {
       setLoading(false); // <-- Stop loading
@@ -49,13 +53,33 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+      
+      {/* Top-left logo */}
+      <div className="absolute top-4 left-3 backdrop-blur-3xl p-3 shadow-lg  rounded-3xl">
+        <h2 className="text-2xl font-sans font-bold text-blue-700">
+          Expenzy
+        </h2>
+      </div>
+
       <div className="bg-white shadow-2xl rounded-2xl px-8 py-10 w-full max-w-sm flex flex-col items-center gap-6 border-gray-500 border-1">
         <h3 className="text-3xl font-extrabold text-gray-800">Log in</h3>
-        <p className="text-gray-700 text-center">Please enter your details to log in</p>
+        <p className="text-gray-700 text-center">
+          Please enter your details to log in
+        </p>
 
         <form className="flex flex-col gap-7 w-full" onSubmit={handleLogin}>
-          <Input type="email" placeholder="Email" value={email} onChange={setEmail} />
-          <Input type="password" placeholder="Password" value={password} onChange={setPassword} />
+          <Input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={setEmail}
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={setPassword}
+          />
 
           {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
@@ -63,7 +87,9 @@ const Login = () => {
             type="submit"
             disabled={loading}
             className={`${
-              loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+              loading
+                ? "bg-blue-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
             } text-white text-xl py-2 rounded-xl transition`}
           >
             {loading ? "Please wait..." : "Log in"}

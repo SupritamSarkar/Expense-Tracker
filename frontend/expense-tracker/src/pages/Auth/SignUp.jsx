@@ -52,6 +52,14 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+
+    {/* Top-left logo */}
+      <div className="absolute top-4 left-3 backdrop-blur-3xl p-3 shadow-lg  rounded-3xl">
+        <h2 className="text-2xl font-sans font-bold text-blue-700">
+          Expenzy
+        </h2>
+      </div>
+
       <div className="bg-white shadow-2xl rounded-2xl px-7 py-10 w-full max-w-sm flex flex-col items-center gap-5">
         <h3 className="text-3xl font-extrabold text-gray-800">Create an Account</h3>
         <p className="text-gray-700 text-center">Please enter your details to sign up</p>
