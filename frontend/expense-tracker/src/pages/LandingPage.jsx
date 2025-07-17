@@ -54,19 +54,18 @@ const LandingPage = () => {
     {/* Navigation Bar */}
        <nav className="fixed top-0 left-0 w-full z-50 bg-white/30 backdrop-blur-md shadow-sm text-gray-700 font-medium px-8 py-4">
       {/* Logo */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         <div className="text-3xl font-bold text-blue-600">Expenzy</div>
 
         {/* Navigation Buttons */}
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-3 lg:space-x-8">
           {/* Login link */}
           <Link to="/login" className="text-gray-800 font-bold hover:text-violet-700">
             Login
           </Link>
-
           {/* Get Started Button */}
           <Link to="/signup">
-            <button className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-300">
+            <button className="flex items-center gap-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-2 rounded-lg shadow-lg transition-all duration-300">
               <ArrowRight size={18} />
               Get Started
             </button>
@@ -123,71 +122,71 @@ const LandingPage = () => {
           </div>
 
           {/* Right Dashboard Demo */}
-          <div className="lg:w-1/2 space-y-4 mt-12 lg:mt-0 ml-10 p-5 rounded-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            {/* Total Balance */}
-            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-lg text-gray-500">Total Balance</p>
-                  <p className="text-2xl font-bold text-yellow-500">₹8,780</p>
-                </div>
-                <div className="p-3 bg-yellow-200 rounded-lg">
-                  <LuWalletMinimal className="h-6 w-6 text-yellow-600" />
-                </div>
-              </div>
-            </div>
+<div className="w-full lg:w-1/2 mt-6 lg:mt-0 p-4 lg:ml-10 space-y-4 rounded-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+  
+  {/* Total Balance */}
+  <div className="bg-white rounded-xl shadow-md p-5 sm:p-6 border border-gray-200">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-base sm:text-lg text-gray-500">Total Balance</p>
+        <p className="text-xl sm:text-2xl font-bold text-yellow-500">₹8,780</p>
+      </div>
+      <div className="p-3 bg-yellow-200 rounded-lg">
+        <LuWalletMinimal className="h-6 w-6 text-yellow-600" />
+      </div>
+    </div>
+  </div>
 
-            {/* Income & Expense */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
-                <div className="flex items-center space-x-2">
-                  <div className="p-2 bg-green-100 rounded">
-                    <TrendingUp className="h-6 w-6 text-green-500" />
-                  </div>
-                  <div>
-                    <p className="text-lg text-gray-500">Income</p>
-                    <p className="text-xl font-semibold text-green-500">
-                      ₹13,750
-                    </p>
-                  </div>
-                </div>
-              </div>
+  {/* Income & Expense */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
+      <div className="flex items-center space-x-2">
+        <div className="p-2 bg-green-100 rounded">
+          <TrendingUp className="h-6 w-6 text-green-500" />
+        </div>
+        <div>
+          <p className="text-base sm:text-lg text-gray-500">Income</p>
+          <p className="text-lg sm:text-xl font-semibold text-green-500">₹13,750</p>
+        </div>
+      </div>
+    </div>
 
-              <div className="bg-white rounded-xl shadow-md p-5 border border-gray-200">
-                <div className="flex items-center space-x-2">
-                  <div className="p-2 bg-red-100 rounded">
-                    <BarChart3 className="h-6 w-6 text-red-500" />
-                  </div>
-                  <div>
-                    <p className="text-lg text-gray-500">Expenses</p>
-                    <p className="text-xl font-semibold text-red-500">₹4,970</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
+      <div className="flex items-center space-x-2">
+        <div className="p-2 bg-red-100 rounded">
+          <BarChart3 className="h-6 w-6 text-red-500" />
+        </div>
+        <div>
+          <p className="text-base sm:text-lg text-gray-500">Expenses</p>
+          <p className="text-lg sm:text-xl font-semibold text-red-500">₹4,970</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            {/* Recent Transactions */}
-            <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-lg font-medium">Recent Transactions</p>
-                <PieChart className="h-6 w-6 text-gray-500" />
-              </div>
-              <div className="space-y-2 text-medium">
-                <div className="flex justify-between">
-                  <span>🍕 Pizza</span>
-                  <span className="text-red-500">-₹100</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>🍽️ Food</span>
-                  <span className="text-red-500">-₹200</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>🚗 Transport</span>
-                  <span className="text-red-500">-₹100</span>
-                </div>
-              </div>
-            </div>
-          </div>
+  {/* Recent Transactions */}
+  <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
+    <div className="flex items-center justify-between mb-3">
+      <p className="text-base sm:text-lg font-medium">Recent Transactions</p>
+      <PieChart className="h-6 w-6 text-gray-500" />
+    </div>
+    <div className="space-y-2 text-sm sm:text-base">
+      <div className="flex justify-between">
+        <span>🍕 Pizza</span>
+        <span className="text-red-500">-₹100</span>
+      </div>
+      <div className="flex justify-between">
+        <span>🍽️ Food</span>
+        <span className="text-red-500">-₹200</span>
+      </div>
+      <div className="flex justify-between">
+        <span>🚗 Transport</span>
+        <span className="text-red-500">-₹100</span>
+      </div>
+    </div>
+  </div>
+</div>
+
         </div>
       </section>
 
