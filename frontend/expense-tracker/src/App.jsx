@@ -4,6 +4,7 @@ import Income from './pages/Dashboard/Income'
 import Expense from './pages/Dashboard/Expense'
 import Login from './pages/Auth/Login'
 import SignUp from './pages/Auth/SignUp'
+import LandingPage from './pages/LandingPage'
 import UserProvider from './context/UserContext'
 import {Toaster} from "react-hot-toast"
 
@@ -23,7 +24,7 @@ const App = () => {
     <div>
       <Router>
       <Routes>
-        <Route path='/' element={<Root/>}></Route>
+        <Route path='/' element={<LandingPage/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/signUp' element={<SignUp/>}></Route>
         <Route path='/dashboard' element={<Home/>}></Route>
