@@ -314,7 +314,7 @@ const LandingPage = () => {
             </p>
          <div className="flex space-x-4 mt-4 text-2xl">
   <a
-    href="https://facebook.com/yourusername"
+    href="https://x.com/supritam88"
     target="_blank"
     rel="noopener noreferrer"
     className="text-white hover:text-purple-600 hover:scale-110 transition-transform duration-200"
@@ -322,7 +322,7 @@ const LandingPage = () => {
     <LuTwitter />
   </a>
   <a
-    href="https://linkedin.com/in/yourusername"
+    href="https://www.linkedin.com/in/supritam-sarkar-327778322/"
     target="_blank"
     rel="noopener noreferrer"
     className="text-white hover:text-purple-600 hover:scale-110 transition-transform duration-200"
@@ -330,7 +330,7 @@ const LandingPage = () => {
     <LuLinkedin />
   </a>
   <a
-    href="https://github.com/yourusername"
+    href="https://github.com/SupritamSarkar"
     target="_blank"
     rel="noopener noreferrer"
     className="text-white hover:text-purple-600 hover:scale-110 transition-transform duration-200"
@@ -338,11 +338,12 @@ const LandingPage = () => {
     <LuGithub />
   </a>
   <a
-    href="mailto:your@email.com"
-    className="text-white hover:text-purple-600 hover:scale-110 transition-transform duration-200"
-  >
-    <LuMailOpen />
-  </a>
+  href="mailto:supritamsarkar481@gmail.com"
+  className="text-white hover:text-purple-600 hover:scale-110 transition-transform duration-200"
+>
+  <LuMailOpen />
+</a>
+
 </div>
 
 
