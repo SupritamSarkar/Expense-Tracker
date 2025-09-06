@@ -14,7 +14,7 @@ const app = express();
 
 app.use(cors({      // Enabling CORS for all origins or a specific one
     // This allows the server to accept requests from different origins
-    origin: process.env.CLIENT_URL || "*",
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
 
     allowedHeaders: ["Content-Type", "Authorization"],  // Specifying allowed headers for requests

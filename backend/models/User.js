@@ -21,7 +21,7 @@ UserSchema.pre("save", async function(next) {
     next();
     });
 
-// Method to compare passwords
+// Method to compare passwords while logging in
 UserSchema.methods.comparePassword = async function(password) {
     return await bcrypt.compare(password, this.password);  // Compare the provided password with the hashed password
 };

@@ -54,6 +54,9 @@ exports.getDashboardData = async (req, res) => {
       0
     ); // Calculating total expense for the last 60 days
 
+
+
+    
     // Fetching the last 7 income + expense transactions
     const lastIncome = (
       await Income.find({ userId }).sort({ date: -1 }).limit(7)            // Sorting by date in descending order and limiting to 7 records
@@ -69,9 +72,15 @@ exports.getDashboardData = async (req, res) => {
       type: "expense",
     }));
 
+
+
     const lastTransactions = [...lastIncome, ...lastExpense]         // Merging last income and expense transactions
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 7);     // Sorting by date in descending order and limiting to 7 records
+
+
+
+
 
     //final respone
     res.json({

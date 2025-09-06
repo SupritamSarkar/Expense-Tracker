@@ -52,13 +52,13 @@ exports.loginUser = async (req, res) =>{        // Function to handle user login
         //Check if user exists
         const user = await User.findOne({ email });  // Search for a user with the provided email
         if (!user) {  // If user does not exist
-            return res.status(400).json({ message: 'Invalid credentials' });  // Respond with an error message
+            return res.status(400).json({ message: 'Invalid Email' });  // Respond with an error message
         }
 
         //Check password
         const isPasswordValid = await user.comparePassword(password);  // Compare provided password with stored hashed password
         if (!isPasswordValid) {  // If password is invalid
-            return res.status(400).json({ message: 'Invalid credentials' });  // Respond with an error message
+            return res.status(400).json({ message: 'Invalid Password' });  // Respond with an error message
         }
 
         res.status(200).json({       // Respond with a success status and user data
